@@ -65,7 +65,7 @@ def main():
 
     parser.add_argument('input', help='the folder of your github wiki')
     parser.add_argument('repo', help='the repository name of your github repo (e.g., username/repository)')
-    parser.add_argument('-i', '--ignore', help='a file containing paths to be ignored', default='.pathignore')
+    parser.add_argument('-i', '--ignore', help='a file containing paths to be ignored (default: .pathignore)', default='.pathignore')
 
     args = parser.parse_args()
 
