@@ -48,7 +48,7 @@ Note that the output doesn't contain `images/` folder because [.pathignore](http
 ```bash
 usage: list_pages.py [-h] [-i IGNORE] input repo
 
-Update wiki pages with their child list
+List wiki pages in a tree structure
 
 positional arguments:
   input                 the folder of your github wiki

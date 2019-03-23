@@ -61,7 +61,7 @@ def list_pages(root, repo, ignorefile):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Update wiki pages with their child list')
+    parser = argparse.ArgumentParser(description='List wiki pages in a tree structure')
 
     parser.add_argument('input', help='the folder of your github wiki')
     parser.add_argument('repo', help='the repository name of your github repo (e.g., username/repository)')
