@@ -8,7 +8,7 @@ import io
 import re
 
 # constants
-GITHUB_URL = r'https://github.com/'
+GITHUB_URL = r'https://github.com'
 
 logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(message)s',
@@ -21,18 +21,23 @@ def read_ignorefile(filename):
         return pathspec.PathSpec.from_lines('gitignore', f)
 
 
-def create_child_list(path, files, repo, ignorespec):
-    indent = path.count(os.sep)
+def create_github_url(repo, filename):
+    return '%s/%s/wiki/%s' % (GITHUB_URL, repo, filename)
 
-    header = '%s- %s\n' % ('\t' * (indent - 1), os.path.basename(path)) if path != '' else ''
+
+def create_child_list(path, files, repo, ignorespec):
+    indent = path.count(os.sep) - 1
+
+    header = '%s- %s\n' % ('\t' * indent, os.path.basename(path)) if path != '' else ''
 
     child_list = []
     for f in files:
         if ignorespec.match_file(f):
             continue
 
-        child_list.append('%s- [%s](%s/%s/wiki%s/%s)' % \
-            ('\t' * indent, os.path.splitext(f)[0], GITHUB_URL, repo, path, f))
+        filename = os.path.splitext(f)[0]
+        child_list.append('%s- [%s](%s)' % \
+            ('\t' * (indent + 1), filename, create_github_url(repo, filename)))
 
     return header + '\n'.join(child_list)
 
@@ -46,7 +51,7 @@ def list_pages(root, repo, ignorefile):
 
         LOGGER.debug('checking %s' % (p))
 
-        if ignorespec.match_file(path):
+        if '/.' in p or ignorespec.match_file(path):
             LOGGER.debug('ignoring %s' % (p))
             continue
 
@@ -63,6 +68,9 @@ def main():
     parser.add_argument('-i', '--ignore', help='a file containing paths to be ignored', default='.pathignore')
 
     args = parser.parse_args()
+
+    if args.input.endswith('/'):
+        args.input = re.sub(r'/*$', '', args.input)
 
     list_pages(args.input, args.repo, args.ignore)
 
