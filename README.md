@@ -42,7 +42,7 @@ And you'll receive the following result:
 	- [tips](https://github.com/tiwanari/github-wiki-tree-organizer/wiki/tips)
 ```
 
-Note that the output doesn't contain `images/` folder because `[.pathignore](https://github.com/tiwanari/github-wiki-tree-organizer/blob/master/.pathignore)` file specifies it.
+Note that the output doesn't contain `images/` folder because [.pathignore](https://github.com/tiwanari/github-wiki-tree-organizer/blob/master/.pathignore) file specifies it.
 
 ## Usage
 ```
